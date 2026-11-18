@@ -1,0 +1,55 @@
+name: Roll out closed beta
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/google-play-rollout-beta.yml']
+permissions:
+  contents: read
+concurrency:
+  group: play-closed-testing
+  cancel-in-progress: false
+jobs:
+  rollout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: pip install 'google-api-python-client==2.202.0' 'google-auth==2.62.2'
+      - name: Validate and activate closed beta
+        env:
+          PLAY_CREDENTIALS: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from google.oauth2 import service_account
+          from googleapiclient.discovery import build
+          package = 'com.obsidianlabs.lxpocketbusiness'
+          track = 'alpha'
+          credentials = service_account.Credentials.from_service_account_info(json.loads(os.environ['PLAY_CREDENTIALS']), scopes=['https://www.googleapis.com/auth/androidpublisher'])
+          edits = build('androidpublisher', 'v3', credentials=credentials, cache_discovery=False).edits()
+          edit = edits.insert(packageName=package, body={}).execute()['id']
+          committed = False
+          try:
+              current = edits.tracks().get(packageName=package, editId=edit, track=track).execute()
+              releases = current.get('releases', [])
+              matches = [r for r in releases if r.get('versionCodes') == ['2']]
+              if len(matches) != 1:
+                  raise RuntimeError('Expected exactly one release containing only version 2')
+              target = matches[0]
+              if target.get('status') == 'completed':
+                  print('Version 2 already completed on closed track; no changes.')
+              else:
+                  if target.get('status') != 'draft' or len(releases) != 1:
+                      raise RuntimeError('Unexpected release state; manual review required.')
+                  target['status'] = 'completed'
+                  edits.tracks().update(packageName=package, editId=edit, track=track, body={'track': track, 'releases': releases}).execute()
+                  edits.validate(packageName=package, editId=edit).execute()
+                  edits.commit(packageName=package, editId=edit).execute()
+                  committed = True
+                  print('Closed testing rollout submitted. Google review and tester eligibility may still apply.')
+          finally:
+              if not committed:
+                  edits.delete(packageName=package, editId=edit).execute()
+          PY
