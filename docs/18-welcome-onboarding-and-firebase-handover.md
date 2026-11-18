@@ -50,3 +50,6 @@ Welcome must communicate practical benefits without accounting, developer or fin
 - Trust line: "Free to use. Works offline." (core features only; ads and external sharing may require connectivity.)
 
 Graphic direction: original, friendly illustrations demonstrating real small-business situations, with visually consistent colours and simple shapes. Proposed Welcome hero: owner using a phone with three recognizable visual cues for money received, money spent and money owed. Subsequent graphics may depict a customer reminder and a monthly summary; all labels rendered as accessible UI text, not embedded in artwork. Avoid misleading money/profit claims or fabricated testimonials. Prepare separate illustration assets after owner confirms visual direction; no artwork generated yet. Use plain-language review with representative first-time users; ask them to explain each benefit in their own words. Preserve no-login, offline first-run and owner-managed Firebase boundaries.
+
+## Owner refinement U08 — welcome artwork and theme
+Follow [doc 19](19-brand-colour-and-welcome-visuals.md): dark earthy olive gradient, lime accents, beautiful original hero picture and plain-English benefits. Artwork and precise layout remain to be approved.
