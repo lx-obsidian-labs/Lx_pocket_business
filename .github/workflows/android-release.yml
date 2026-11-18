@@ -12,10 +12,10 @@ jobs:
       STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
       KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
       KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-      ADMOB_APP_ID: ${{ secrets.ADMOB_APP_ID }}
-      ADMOB_BANNER_UNIT_ID: ${{ secrets.ADMOB_BANNER_UNIT_ID }}
-      ADMOB_INTERSTITIAL_UNIT_ID: ${{ secrets.ADMOB_INTERSTITIAL_UNIT_ID }}
-      ADMOB_REWARDED_UNIT_ID: ${{ secrets.ADMOB_REWARDED_UNIT_ID }}
+      ADMOB_APP_ID: 'ca-app-pub-8968817915668565~6466180772'
+      ADMOB_BANNER_UNIT_ID: 'ca-app-pub-8968817915668565/5274846043'
+      ADMOB_INTERSTITIAL_UNIT_ID: 'ca-app-pub-8968817915668565/9182301467'
+      ADMOB_REWARDED_UNIT_ID: 'ca-app-pub-8968817915668565/1802504899'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
