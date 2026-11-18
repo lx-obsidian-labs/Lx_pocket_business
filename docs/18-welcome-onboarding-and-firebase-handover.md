@@ -53,3 +53,6 @@ Graphic direction: original, friendly illustrations demonstrating real small-bus
 
 ## Owner refinement U08 — welcome artwork and theme
 Follow [doc 19](19-brand-colour-and-welcome-visuals.md): dark earthy olive gradient, lime accents, beautiful original hero picture and plain-English benefits. Artwork and precise layout remain to be approved.
+
+## Owner refinement U09 — required terms acknowledgement
+The welcome/onboarding sequence includes the dedicated scrollable terms screen S27 before Get started and business setup. Explicit agreement is required; scrolling alone does not count. Follow [doc 20](20-terms-acknowledgement-and-first-run-flow.md) for the local acceptance record, accessibility, privacy separation and reacceptance behavior. Final terms wording remains pending legal review.
