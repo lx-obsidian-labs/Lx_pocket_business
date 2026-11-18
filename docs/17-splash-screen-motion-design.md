@@ -44,3 +44,6 @@ Track actual startup milestones: local preferences loaded, business database ope
 Acceptance: real progress never claims readiness early; cold and warm launch, slow migration, failed load, process death, offline startup and reduced motion verified; footer stays readable, exit never leaves user on a blank screen. Android's system splash itself is limited; the branded progress UI is in the first Compose frame, not an attempt to add arbitrary widgets to the OS splash.
 
 Source checked 2026-11-18: https://developer.android.com/develop/ui/compose/components/progress — determinate versus indeterminate indicators; https://developer.android.com/develop/ui/views/launch/splash-screen — platform constraints and exit.
+
+## Owner refinement U08 — lime theme and numeric progress
+Use the lime/dark olive gradient tokens in [doc 19](19-brand-colour-and-welcome-visuals.md), superseding the earlier blue proposal. Display the percentage beside or under the bar (0–100% of completed defined startup milestones, not time remaining). Four milestones give 25% increments; 100% only after readiness. Do not fabricate progress or delay the transition. See doc 19 for palette and placement.
