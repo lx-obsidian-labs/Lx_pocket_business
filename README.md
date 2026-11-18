@@ -22,6 +22,7 @@ A free, ad-supported, offline-first Android business productivity app for South 
 | [14 — MVP product definition](docs/14-mvp-product-definition.md) | Revised daily-first scope, measurable criteria and prioritization |
 | [15 — Automation and customer workflows](docs/15-automation-and-customer-workflows.md) | Customer entry, trigger/action rules, scheduling and tests |
 | [16 — MVP screen specification](docs/16-mvp-screen-specification.md) | 26 proposed screens, routes, actions, states and workflow map |
+| [17 — Splash screen and motion design](docs/17-splash-screen-motion-design.md) | Owner-defined logo pulse, edge glow, spin and exit transition |
 
 ## Current product direction — proposed, not yet validated
 Start with the problem: owners without consistent records cannot readily understand cash movement, spending and customer debt. The original invoice-first emphasis in documents 01–10 is historical; documents 11–16 propose a daily-first MVP, subject to validation and owner review. Begin with simple Money In, Money Out and Someone Owes Me; add customer reuse, due actions, formal documents and monthly packs without double counting. No subscriptions. Advertising must never obstruct offline work or expose business records. AI and recurring drafts are candidates, not committed launch dependencies.
