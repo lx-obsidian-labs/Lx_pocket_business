@@ -30,6 +30,8 @@ A free, ad-supported, offline-first Android business productivity app for South 
 | [22 — Daily-first ledger data contract](docs/22-ledger-data-contract.md) | Canonical cash/debt events, atomic writes, reconciliation and migration |
 | [23 — Documents and monthly business pack](docs/23-document-templates-and-monthly-pack.md) | Branded print templates, VAT rules, monthly reports and export tests |
 | [24 — Implementation blueprint and dependency verification](docs/24-toolchain-and-implementation-blueprint.md) | Candidate Android toolchain, code boundaries and compatibility gates |
+| [25 — Evidence-led product characteristics](docs/25-evidence-led-product-characteristics.md) | Twelve product characteristics linked to evidence and owner requirements |
+| [26 — Visual design system and brand board brief](docs/26-visual-design-system-and-brand-board-brief.md) | Colour tokens, layout, typography, components, asset inventory and evidence mapping |
 
 ## Current product direction — proposed, not yet validated
 Start with the problem: owners without consistent records cannot readily understand cash movement, spending and customer debt. The original invoice-first emphasis in documents 01–10 is historical; documents 11–16 propose a daily-first MVP, subject to validation and owner review. Begin with simple Money In, Money Out and Someone Owes Me; add customer reuse, due actions, formal documents and monthly packs without double counting. No subscriptions. Advertising must never obstruct offline work or expose business records. AI and recurring drafts are candidates, not committed launch dependencies.
