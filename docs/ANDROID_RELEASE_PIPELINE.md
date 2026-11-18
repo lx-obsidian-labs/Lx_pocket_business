@@ -9,9 +9,8 @@ In repository Settings > Secrets and variables > Actions, add repository secrets
 - ANDROID_STORE_PASSWORD
 - ANDROID_KEY_ALIAS
 - ANDROID_KEY_PASSWORD
-- ADMOB_APP_ID
-- ADMOB_BANNER_UNIT_ID
-- ADMOB_INTERSTITIAL_UNIT_ID and ADMOB_REWARDED_UNIT_ID only if used.
+
+Production AdMob identifiers are configured in the release workflow. They are public application identifiers, not signing secrets. Configuring an ad unit does not itself enable its display.
 
 On Windows PowerShell, encode the existing keystore using [Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\\path\\upload.jks")). Keep the output private. If no upload key exists, generate one in Android Studio via Build > Generate Signed Bundle / APK, then securely back it up. Do not replace an existing registered upload key.
 
