@@ -1,6 +1,10 @@
 name: Android release
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/android-release.yml'
 permissions:
   contents: read
 jobs:
@@ -79,6 +83,8 @@ jobs:
           done
           APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -1)
           for apk in release-artifacts/*.apk; do "$APKSIGNER" verify --verbose "$apk"; done
+          if [ -f app/build/outputs/mapping/release/mapping.txt ]; then cp app/build/outputs/mapping/release/mapping.txt release-artifacts/; fi
+          if [ -f app/build/outputs/native-debug-symbols/release/native-debug-symbols.zip ]; then cp app/build/outputs/native-debug-symbols/release/native-debug-symbols.zip release-artifacts/; fi
           (cd release-artifacts && sha256sum *.aab *.apk > SHA256SUMS.txt)
       - uses: actions/upload-artifact@v4
         with:
