@@ -26,6 +26,7 @@ A free, ad-supported, offline-first Android business productivity app for South 
 | [18 — Welcome, onboarding and Firebase handover](docs/18-welcome-onboarding-and-firebase-handover.md) | First-run flow, local state, no mandatory login, owner-managed Firebase integration |
 | [19 — Brand colour and welcome visuals](docs/19-brand-colour-and-welcome-visuals.md) | Lime accents, dark olive gradient, numeric progress and artwork direction |
 | [20 — Terms acknowledgement and first-run flow](docs/20-terms-acknowledgement-and-first-run-flow.md) | Scrollable terms, explicit acceptance, local record and first-run gate |
+| [21 — Business setup, Home and navigation](docs/21-business-setup-home-and-navigation.md) | Business name, optional logo/sector/formal details, empty dashboard, bottom tabs and document branding |
 
 ## Current product direction — proposed, not yet validated
 Start with the problem: owners without consistent records cannot readily understand cash movement, spending and customer debt. The original invoice-first emphasis in documents 01–10 is historical; documents 11–16 propose a daily-first MVP, subject to validation and owner review. Begin with simple Money In, Money Out and Someone Owes Me; add customer reuse, due actions, formal documents and monthly packs without double counting. No subscriptions. Advertising must never obstruct offline work or expose business records. AI and recurring drafts are candidates, not committed launch dependencies.
