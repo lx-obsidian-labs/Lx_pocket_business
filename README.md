@@ -34,6 +34,8 @@ A free, ad-supported, offline-first Android business productivity app for South 
 | [26 — Visual design system and brand board brief](docs/26-visual-design-system-and-brand-board-brief.md) | Colour tokens, layout, typography, components, asset inventory and evidence mapping |
 | [27 — Downloadables and delivery manifest](docs/27-downloadables-and-delivery-manifest.md) | Reusable design assets, archives, signed release packages and exports |
 | [28 — Feature-by-feature technology register](docs/28-feature-by-feature-technology-register.md) | Native Android tools, alternatives, official sources and validation gates |
+| [29 — Advertising Implementation Specification (ADS)](docs/29-advertising-implementation-specification.md) | AdMob placements, consent, SDK boundaries and acceptance tests |
+| [30 — Authentication and Access Control Guidelines (AUTH)](docs/30-authentication-and-access-control-guidelines.md) | Local lock, account-free base and future owner-managed Firebase authentication |
 
 ## Current product direction — proposed, not yet validated
 Start with the problem: owners without consistent records cannot readily understand cash movement, spending and customer debt. The original invoice-first emphasis in documents 01–10 is historical; documents 11–16 propose a daily-first MVP, subject to validation and owner review. Begin with simple Money In, Money Out and Someone Owes Me; add customer reuse, due actions, formal documents and monthly packs without double counting. No subscriptions. Advertising must never obstruct offline work or expose business records. AI and recurring drafts are candidates, not committed launch dependencies.
