@@ -58,3 +58,6 @@ Invoice issuance links existing debt or creates it exactly once. If quote/invoic
 
 ## Validation and handover
 Wireframes are the next design artifact: annotated layouts per screen, keyboard behavior, loading/empty/error states, tablet adaptations and clickable prototype. Test first entry, inline customer, partial settlement, due action and monthly report against closest competitor. No screen is approved or implemented yet. Screens S15 recurring features contingent on prioritization; final legal copy, exact navigation styling and backup implementation remain open. Each later screen change must cite M and B IDs and corresponding test evidence.
+
+## Owner refinement U10 — business setup and clean live dashboard
+See [doc 21](21-business-setup-home-and-navigation.md) for the expanded S02 and S03 contracts. Business name alone is sufficient; logo, sector and formal details are optional at setup. Customer-facing PDFs use the actual business logo if supplied, otherwise a name-only header. No sample financial data or seeded customers/documents in the live workspace. Bottom navigation proposed as Home, Customers, Money, Documents, More. This refinement supersedes conflicting earlier defaults; sample demo deferred.
