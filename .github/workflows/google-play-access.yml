@@ -1,0 +1,38 @@
+name: Verify Google Play access
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/google-play-access.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install 'google-api-python-client>=2.160,<3' 'google-auth>=2.38,<3'
+      - name: Verify app access without publishing
+        env:
+          PLAY_CREDENTIALS: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from google.oauth2 import service_account
+          from googleapiclient.discovery import build
+          creds = service_account.Credentials.from_service_account_info(json.loads(os.environ['PLAY_CREDENTIALS']), scopes=['https://www.googleapis.com/auth/androidpublisher'])
+          api = build('androidpublisher','v3',credentials=creds,cache_discovery=False)
+          package = 'com.obsidianlabs.lxpocketbusiness'
+          edits = api.edits()
+          edit = edits.insert(packageName=package,body={}).execute()['id']
+          try:
+              tracks = edits.tracks().list(packageName=package,editId=edit).execute()
+              for track in tracks.get('tracks',[]):
+                  print('Track:',track['track'], 'Releases:', [(r.get('versionCodes'),r.get('status')) for r in track.get('releases',[])])
+              print('Google Play access verified.')
+          finally:
+              edits.delete(packageName=package,editId=edit).execute()
+          PY
