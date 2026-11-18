@@ -36,3 +36,5 @@ jobs:
           finally:
               edits.delete(packageName=package,editId=edit).execute()
           PY
+
+# Retry verification after credentials correction.
