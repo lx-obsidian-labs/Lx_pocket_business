@@ -28,8 +28,8 @@ android {
         applicationId = "com.obsidianlabs.lxpocketbusiness"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders["admobAppId"] = localProperties.getProperty("admob.app.id", "")
@@ -55,6 +55,7 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            ndk { debugSymbolLevel = "SYMBOL_TABLE" }
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
