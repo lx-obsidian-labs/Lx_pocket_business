@@ -29,8 +29,17 @@ jobs:
           [[ "$RUN_ID" =~ ^[0-9]+$ ]]
           gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" | jq -e '.conclusion == "success" and .path == ".github/workflows/android-release.yml" and .head_branch == "main"'
           gh run download "$RUN_ID" --repo "$GITHUB_REPOSITORY" --pattern 'lx-pocket-business-release-*' --dir release
-          cd release
-          sha256sum -c SHA256SUMS.txt
+          mapfile -d '' manifests < <(find release -type f -name SHA256SUMS.txt -print0)
+          if [[ "${#manifests[@]}" != 1 ]]; then
+            echo "::error::Expected exactly one checksum manifest"
+            find release -type f -printf '%P\n'
+            exit 1
+          fi
+          artifact_dir="$(dirname "${manifests[0]}")"
+          (cd "$artifact_dir" && sha256sum -c SHA256SUMS.txt)
+          mapfile -d '' bundles < <(find "$artifact_dir" -maxdepth 1 -type f -name '*.aab' -print0)
+          [[ "${#bundles[@]}" == 1 ]]
+          echo "PLAY_AAB=$GITHUB_WORKSPACE/${bundles[0]}" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -61,8 +70,8 @@ jobs:
                   raise RuntimeError('Existing closed testing draft: review or discard it in Play Console first.')
               bundles = edits.bundles().list(packageName=package, editId=edit).execute().get('bundles', [])
               if not any(int(b['versionCode']) == expected for b in bundles):
-                  files = list(pathlib.Path('release').glob('*.aab'))
-                  if len(files) != 1:
+                  files = [pathlib.Path(os.environ['PLAY_AAB'])]
+                  if not files[0].is_file():
                       raise RuntimeError('Expected exactly one AAB')
                   result = edits.bundles().upload(packageName=package, editId=edit,
                       media_body=MediaFileUpload(str(files[0]), mimetype='application/octet-stream', resumable=True)).execute()
