@@ -56,3 +56,6 @@ Follow [doc 19](19-brand-colour-and-welcome-visuals.md): dark earthy olive gradi
 
 ## Owner refinement U09 — required terms acknowledgement
 The welcome/onboarding sequence includes the dedicated scrollable terms screen S27 before Get started and business setup. Explicit agreement is required; scrolling alone does not count. Follow [doc 20](20-terms-acknowledgement-and-first-run-flow.md) for the local acceptance record, accessibility, privacy separation and reacceptance behavior. Final terms wording remains pending legal review.
+
+## Owner refinement U10 — business setup and clean live dashboard
+See [doc 21](21-business-setup-home-and-navigation.md) for the expanded S02 and S03 contracts. Business name alone is sufficient; logo, sector and formal details are optional at setup. Customer-facing PDFs use the actual business logo if supplied, otherwise a name-only header. No sample financial data or seeded customers/documents in the live workspace. Bottom navigation proposed as Home, Customers, Money, Documents, More. This refinement supersedes conflicting earlier defaults; sample demo deferred.
