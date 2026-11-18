@@ -37,7 +37,7 @@ jobs:
           [[ "$ADMOB_APP_ID" != ca-app-pub-3940256099942544~* ]] || exit 1
           [[ "$ADMOB_BANNER_UNIT_ID" != ca-app-pub-3940256099942544/* ]] || exit 1
       - name: Install Android platform
-        run: sdkmanager "platforms;android-37"
+        run: sdkmanager "platforms;android-37.0"
       - name: Configure signing and ads
         shell: bash
         run: |

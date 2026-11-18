@@ -15,7 +15,7 @@ Production AdMob identifiers are configured in the release workflow. They are pu
 On Windows PowerShell, encode the existing keystore using [Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\\path\\upload.jks")). Keep the output private. If no upload key exists, generate one in Android Studio via Build > Generate Signed Bundle / APK, then securely back it up. Do not replace an existing registered upload key.
 
 ## Build
-Open Actions > Android release > Run workflow on main. The workflow requires Android SDK 37 as specified by the project. If the runner cannot install this SDK, resolve SDK availability before changing compileSdk.
+Open Actions > Android release > Run workflow on main. The workflow installs Android SDK platform 37.0 as required by the project dependencies.
 
 Download the lx-pocket-business-release artifact from the successful run. Extract it and upload app-release.aab to the intended Play testing track. The APK is signed with the upload key, not necessarily the Google Play app signing key; installations from different signing keys cannot update one another.
 
