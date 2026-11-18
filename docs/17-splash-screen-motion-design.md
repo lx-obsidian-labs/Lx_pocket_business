@@ -34,3 +34,13 @@ Honor system animation duration scale and reduced-motion preference: static logo
 - https://developer.android.com/reference/androidx/core/splashscreen/SplashScreen — compatibility API and icon safe area.
 - https://developer.android.com/develop/ui/compose/animation/quick-guide — animation timing and graphicsLayer transforms.
 - https://developer.android.com/develop/ui/compose/animation/customize — easing and keyframes.
+
+
+## Owner refinement U06 — visible startup progress
+On the branded Compose splash, beneath the centered pulsing logo and above the unchanged footer "powered by LX Obsidian Labs", show a slim horizontal progress indicator and plain-English status. Suggested states: "Getting things ready…", "Opening your business…", "Almost ready" (only when final readiness checks have begun). Keep footer in bottom safe area. Match the glow accent and maintain contrast. Layout is proposed; logo and palette still await approval.
+
+Track actual startup milestones: local preferences loaded, business database opened/migrated, destination resolved, destination ready. If representing completed milestones, explicitly label the count (e.g. "Step 2 of 4"); do not present equally weighted stages as a reliable time estimate. Use determinate percentage only when measurable work units are available; otherwise an indeterminate bar and current status. No fabricated countdown, percentage, minimum wait or guaranteed ETA. Fast launches may complete before the indicator is visible. At readiness, fill the indicator if determinate, perform the brief pulse/spin/fade exit once and reveal Welcome or Home. If startup fails, stop the animation and show a recoverable Retry/Restore path; if unusually slow, show a reassuring truthful status without blocking forever. No network, Firebase or ad request in the startup critical path. Support disabled animation, accessible progress semantics, and avoid repeated announcements.
+
+Acceptance: real progress never claims readiness early; cold and warm launch, slow migration, failed load, process death, offline startup and reduced motion verified; footer stays readable, exit never leaves user on a blank screen. Android's system splash itself is limited; the branded progress UI is in the first Compose frame, not an attempt to add arbitrary widgets to the OS splash.
+
+Source checked 2026-11-18: https://developer.android.com/develop/ui/compose/components/progress — determinate versus indeterminate indicators; https://developer.android.com/develop/ui/views/launch/splash-screen — platform constraints and exit.
