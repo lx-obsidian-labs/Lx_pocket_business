@@ -1,0 +1,85 @@
+name: Google Play closed testing
+on:
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: Successful Android release workflow run ID
+        required: true
+        default: '44388810387'
+      version_code:
+        description: Expected Android version code
+        required: true
+        default: '2'
+permissions:
+  actions: read
+  contents: read
+concurrency:
+  group: play-closed-testing
+  cancel-in-progress: false
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Download verified release artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.build_run_id }}
+        run: |
+          [[ "$RUN_ID" =~ ^[0-9]+$ ]]
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" | jq -e '.conclusion == "success" and .path == ".github/workflows/android-release.yml" and .head_branch == "main"'
+          gh run download "$RUN_ID" --repo "$GITHUB_REPOSITORY" --pattern 'lx-pocket-business-release-*' --dir release
+          cd release
+          sha256sum -c SHA256SUMS.txt
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Google API client
+        run: pip install 'google-api-python-client>=2.160,<3' 'google-auth>=2.38,<3'
+      - name: Upload draft to closed testing
+        env:
+          PLAY_CREDENTIALS: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          EXPECTED_VERSION: ${{ inputs.version_code }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib
+          from google.oauth2 import service_account
+          from googleapiclient.discovery import build
+          from googleapiclient.http import MediaFileUpload
+          package = 'com.obsidianlabs.lxpocketbusiness'
+          track = 'alpha'
+          expected = int(os.environ['EXPECTED_VERSION'])
+          credentials = service_account.Credentials.from_service_account_info(
+              json.loads(os.environ['PLAY_CREDENTIALS']),
+              scopes=['https://www.googleapis.com/auth/androidpublisher'])
+          api = build('androidpublisher', 'v3', credentials=credentials, cache_discovery=False)
+          edits = api.edits()
+          edit = edits.insert(packageName=package, body={}).execute()['id']
+          try:
+              current = edits.tracks().get(packageName=package, editId=edit, track=track).execute()
+              if any(r.get('status') == 'draft' for r in current.get('releases', [])):
+                  raise RuntimeError('Existing closed testing draft: review or discard it in Play Console first.')
+              bundles = edits.bundles().list(packageName=package, editId=edit).execute().get('bundles', [])
+              if not any(int(b['versionCode']) == expected for b in bundles):
+                  files = list(pathlib.Path('release').glob('*.aab'))
+                  if len(files) != 1:
+                      raise RuntimeError('Expected exactly one AAB')
+                  result = edits.bundles().upload(packageName=package, editId=edit,
+                      media_body=MediaFileUpload(str(files[0]), mimetype='application/octet-stream', resumable=True)).execute()
+                  if int(result['versionCode']) != expected:
+                      raise RuntimeError('Unexpected version code')
+              releases = current.get('releases', [])
+              releases.append({'name': f'LX Pocket Business beta {expected}', 'versionCodes': [str(expected)],
+                  'status': 'draft', 'releaseNotes': [{'language': 'en-US', 'text': 'Closed beta testing release. Please share feedback on usability and reliability.'}]})
+              edits.tracks().update(packageName=package, editId=edit, track=track,
+                  body={'track': track, 'releases': releases}).execute()
+              edits.validate(packageName=package, editId=edit).execute()
+              edits.commit(packageName=package, editId=edit).execute()
+              print('Draft saved. Review in Google Play Console before rollout.')
+          except Exception:
+              try:
+                  edits.delete(packageName=package, editId=edit).execute()
+              except Exception:
+                  pass
+              raise
+          PY
