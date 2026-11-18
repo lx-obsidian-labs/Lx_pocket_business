@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.LxPocketBusiness" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/lx_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/lx_background_olive</item>
+        <item name="postSplashScreenTheme">@style/Theme.LxPocketBusiness.Main</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 
-    <style name="Theme.LxPocketBusiness" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.LxPocketBusiness.Main" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/lx_background</item>
+        <item name="android:statusBarColor">@color/lx_background</item>
+        <item name="android:navigationBarColor">@color/lx_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 </resources>
