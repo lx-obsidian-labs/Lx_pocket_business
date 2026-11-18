@@ -16,9 +16,18 @@ A free, ad-supported, offline-first Android business productivity app for South 
 | [08 — UX workflows](docs/08-ux-workflows.md) | Navigation, screen and accessibility requirements |
 | [09 — Delivery and test plan](docs/09-delivery-and-test-plan.md) | Development phases, tests, release gates |
 | [10 — Source register](docs/10-source-register.md) | Confirmed official references and remaining checks |
+| [11 — Problem evidence and review audit](docs/11-problem-evidence-and-review-audit.md) | National evidence, local alternatives and differentiation hypothesis |
+| [12 — Free competitors and AI feasibility](docs/12-free-competitors-and-ai-feasibility.md) | Free pricing, AI reporting and NVIDIA production constraints |
+| [13 — Problem register and review evidence](docs/13-problem-register-review-evidence.md) | Stable B/E/U identifiers, dated review observations and explicit owner requirements |
+| [14 — MVP product definition](docs/14-mvp-product-definition.md) | Revised daily-first scope, measurable criteria and prioritization |
+| [15 — Automation and customer workflows](docs/15-automation-and-customer-workflows.md) | Customer entry, trigger/action rules, scheduling and tests |
+| [16 — MVP screen specification](docs/16-mvp-screen-specification.md) | 26 proposed screens, routes, actions, states and workflow map |
 
-## Initial product focus
-Customer → quotation → invoice → manual payment → report/export. Expenses, catalogue, backup and restore complete the proposed first release. Advertising must never obstruct offline work or expose business records.
+## Current product direction — proposed, not yet validated
+Start with the problem: owners without consistent records cannot readily understand cash movement, spending and customer debt. The original invoice-first emphasis in documents 01–10 is historical; documents 11–16 propose a daily-first MVP, subject to validation and owner review. Begin with simple Money In, Money Out and Someone Owes Me; add customer reuse, due actions, formal documents and monthly packs without double counting. No subscriptions. Advertising must never obstruct offline work or expose business records. AI and recurring drafts are candidates, not committed launch dependencies.
+
+## Traceability
+Read 13 → 14 → 15 → 16 for the latest proposal. Every new feature or screen must cite a problem ID (B), evidence ID (E) or explicit user requirement (U), a feature ID (M), and acceptance tests. Do not treat review anecdotes as representative evidence. Field interviews, competitor hands-on benchmarking, annotated wireframes and final technical/legal validation remain outstanding. No implementation until scope is approved.
 
 ## Decision gates
 Read and approve requirements before implementing. Validate user demand, tax templates, dependency compatibility, security, and applicable Play/legal requirements before release. No credentials, real customer records, signing keys or production ad IDs in this repository. Documents are versioned individually; link future changes to requirement IDs and test evidence.
