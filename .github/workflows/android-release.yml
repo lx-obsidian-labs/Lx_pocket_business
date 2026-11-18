@@ -66,7 +66,7 @@ jobs:
       - name: Test and build
         run: |
           chmod +x gradlew
-          ./gradlew --no-daemon testReleaseUnitTest lintRelease bundleRelease assembleRelease
+          ./gradlew --no-daemon testDebugUnitTest lintRelease bundleRelease assembleRelease
       - name: Verify signatures and checksums
         shell: bash
         run: |
