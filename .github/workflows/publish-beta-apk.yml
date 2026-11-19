@@ -1,0 +1,36 @@
+name: Publish beta APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-beta-apk.yml']
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: public-beta-apk
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Download and verify signed release
+        run: |
+          set -euo pipefail
+          gh run download 44388810387 --name lx-pocket-business-release-7 --dir release
+          cd release
+          sha256sum -c SHA256SUMS.txt
+          test -s app-release.apk
+          cp app-release.apk lx-pocket-business-1.0.1-beta.apk
+          sha256sum lx-pocket-business-1.0.1-beta.apk > lx-pocket-business-1.0.1-beta.apk.sha256
+      - name: Publish public beta prerelease
+        run: |
+          set -euo pipefail
+          if gh release view v1.0.1-beta >/dev/null 2>&1; then
+            echo 'Release already exists; refusing to overwrite assets.'
+            exit 1
+          fi
+          gh release create v1.0.1-beta release/lx-pocket-business-1.0.1-beta.apk release/lx-pocket-business-1.0.1-beta.apk.sha256 --target aa635dcfca9f517b1134ada772bff0cd659f7454 --title 'LX Pocket Business 1.0.1 Beta' --prerelease --notes 'Signed Android beta, version code 2. Use sample data and back up records. Direct APK installs do not count toward Google Play closed testing.'
